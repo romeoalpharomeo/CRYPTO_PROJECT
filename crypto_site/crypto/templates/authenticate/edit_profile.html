@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-md-6 offset-md-3">
+        <h1>Edit Profile</h1>
+        <form method="POST" action="{% url 'edit_profile' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p>Please verfiy all fields have been filled out.</p>
+        {% endif %}
+
+        {{form.as_p}}
+            <input type="submit" value="Submit Changes" class="btn btn-info">
+        </form>
+    </div>
+{% endblock %}

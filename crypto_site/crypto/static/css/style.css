@@ -1,0 +1,13 @@
+#image-bg {
+    background-image: url("/static/crypto/media/bg_links.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#price-display {
+    background-color: black;
+    border: 2px solid skyblue;
+    border-radius: 4px;
+    color: whitesmoke;
+}
