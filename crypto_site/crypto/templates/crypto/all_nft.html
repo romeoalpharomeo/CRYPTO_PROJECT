@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+    <h1 id="nft-banner">All NFTs</h1>
+    <div class="container">
+        <div class="row">
+            {% for n in nonfts %}
+            <div class="col-sm">
+                <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+                    <img src="{{n.images.url}}" class="card-img-top" alt="{{n.description}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{n.nonft_name}}</h5>
+                        <p class="card-text"> ∆ {{n.price}}</p>
+                        <a href="#" class="btn btn-info">View</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -5,6 +5,7 @@ from django.contrib import messages
 from .forms import SignUpForm, EditProfileForm
 import requests
 import json
+from store.models import Nonft
 # Create your views here.
 
 def register_user(request):
@@ -78,7 +79,7 @@ def home(request):
     # Gets ALL News From CryptoCompare
     btc_news_request = requests.get("https://min-api.cryptocompare.com/data/v2/news/?categories=BTC,ETH,ADA/?lang=EN")
     btc_news = json.loads(btc_news_request.content)
-    return render(request, 'home.html', {'btc_news': btc_news, 'price': price})
+    return render(request, 'crypto/home.html', {'btc_news': btc_news, 'price': price})
 
 def prices(request):
     if request.method == "POST":
@@ -86,14 +87,15 @@ def prices(request):
         quote = quote.upper()
         searched_price_request = requests.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms="+ quote +"&tsyms=USD")
         searched_price = json.loads(searched_price_request.content)
-        return render(request, 'prices.html', {'quote': quote, 'searched_price': searched_price})
+        return render(request, 'crypto/prices.html', {'quote': quote, 'searched_price': searched_price})
     else:
         not_valid_ticker = "Please enter a valid ticker. Examples: 'BTC', 'ada'..." 
-        return render(request, 'prices.html', {'not_valid_ticker': not_valid_ticker})
+        return render(request, 'crypto/prices.html', {'not_valid_ticker': not_valid_ticker})
 
-def socials(request):
-    # Gets Socials Data From CryptoCompare
-    social_data_request = requests.get("https://min-api.cryptocompare.com/data/blockchain/latest?fsym?5690685d8cc128ee7cc785f39c47271d7690cfd28ddf2940ab1565946fe1eac3")
-    social = json.loads(social_data_request.content)
-    return render(request, 'socials.html', {'social': social})
+def all_nft(request):
+    nonfts = Nonft.objects.all().filter(is_available = True)
+    context = {
+        'nonfts': nonfts
+    }
+    return render(request, 'crypto/all_nft.html', context)
 
